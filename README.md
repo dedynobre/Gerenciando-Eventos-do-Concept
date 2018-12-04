@@ -24,6 +24,6 @@ Excel possa utilizá-lo.
 Logo após feito este desenvolvimento a rotina de verificação de eventos melhorou e houve ganho de produtividade.
 
 Este procedimento auxilia muito na verificação dos eventos só que tem alguns detalhes:
-* 1 - Necesside de rodar uma .bat para poder centralizar os arquivos de logs.
-* 2 - Os eventos não são verificados de forma automática e em tempo real. Com isso não tem acompanhamento quando o evento foi realizado.
-* 3 - Desta forma trabalha-se com eventos no passado. Isto funciona mas em caso de notificação não se aplica.
+>* 1 - Necesside de rodar uma .bat para poder centralizar os arquivos de logs.
+>* 2 - Os eventos não são verificados de forma automática e em tempo real. Com isso não tem acompanhamento quando o evento foi realizado.
+>* 3 - Desta forma trabalha-se com eventos no passado. Isto funciona mas em caso de notificação não se aplica.
