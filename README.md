@@ -18,4 +18,12 @@ uma alteração e retorna nas colunas do excel:
 
 <img src="https://github.com/dedynobre/Gerenciando-Eventos-do-Concept/blob/master/images/conc-01.jpg"/></br>
 
+A base para este desenvolvimento é um arquivo ***.bat** que 'busca' os logs de todas as máquinas que possui o Concept instalado e centraliza em um local específico na rede para que o cógido
+Excel possa utilizá-lo.
+
 Logo após feito este desenvolvimento a rotina de verificação de eventos melhorou e houve ganho de produtividade.
+
+Este procedimento auxilia muito na verificação dos eventos só que tem alguns detalhes:
+* 1 - Necesside de rodar uma .bat para poder centralizar os arquivos de logs.
+* 2 - Os eventos não são verificados de forma automática e em tempo real. Com isso não tem acompanhamento quando o evento foi realizado.
+* 3 - Desta forma trabalha-se com eventos no passado. Isto funciona mas em caso de notificação não se aplica.
