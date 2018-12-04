@@ -1,2 +1,6 @@
-# Gerenciando-Eventos-do-Concept-Schnieder-com-NodeRed
-Uso do NodeRed para monitorar os eventos ocorridos no software Concept(Schneider)
+# Gerenciando Eventos do Concept(Schneider) com NodeRed
+
+O obejtivo do projeto foi desenvolver uma forma de monitorar os eventos ocorridos no Software de Automação Industrial **Concept** da Schneider.
+
+
+#Problema
