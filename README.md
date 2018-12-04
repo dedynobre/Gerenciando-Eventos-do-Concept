@@ -17,3 +17,5 @@ O primeiro passo para poder minimizar este trabalhou foi o desenvolvimento de um
 uma alteração e retorna nas colunas do excel:
 
 <img src="https://github.com/dedynobre/Gerenciando-Eventos-do-Concept/blob/master/images/conc-01.jpg"/></br>
+
+Logo após feito este desenvolvimento a rotina de verificação de eventos melhorou e houve ganho de produtividade.
