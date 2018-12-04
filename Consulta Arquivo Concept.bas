@@ -1,6 +1,3 @@
-Attribute VB_Name = "F1"
-'Denis Nobre
-'Automação Kinross
 
 Public Function gera_relatorio_se22()
 Dim caminho As String
