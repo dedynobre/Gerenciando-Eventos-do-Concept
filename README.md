@@ -14,4 +14,4 @@ fica algo centralizado. Como o arquivo do Concept é local, ou seja, para cada m
 máquina são 100 arquivos a serem analisados. Isso torna uma tarefa não muito produtiva.
 
 O primeiro passo para poder minimizar este trabalhou foi o desenvolvimento de uma planilha no excel usando VBA que, na prática, 'abre' estes arquivos e busca das marcações que consideramos que foi 
-uma alteração e retorna nas colunas do excel.
+uma alteração e retorna nas colunas do excel:
