@@ -44,3 +44,8 @@ Iniciamos o projeto com algumas perguntas básicas:
 * Qual a frequência de verificação dos arquivos de log?
 * Qual seria o meio de envio das notificações?
 * Os eventos encontrados serão gravados em algum banco de dados externo?
+
+Respondendo as essas perguntas chegamos na seguinte conclusão:
+* A frenquência de verificação dos arquivos de logs será de 3 segundos.
+* As notificações seriam enviadas via Telegram devido a facilidade de integração com o NodeRed. Tem a opção de email também mas não seria tão eficiente quanto o Telegram.
+* Além das notificações via Telegram os eventos serão enviados para um banco de dados MS SQL Server que será a base para o relatório do Excel.
