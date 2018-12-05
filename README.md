@@ -32,3 +32,11 @@ Este procedimento auxilia muito na verificação dos eventos só que tem alguns 
 2) Os eventos não são verificados de forma automática e em tempo real.
 3) Desta forma trabalha-se com eventos no passado. Isto funciona mas em caso de notificação não se aplica.
 ```
+
+```javascript
+function fancyAlert(arg) {
+  if(arg) {
+    $.facebox({div:'#foo'})
+  }
+}
+```
