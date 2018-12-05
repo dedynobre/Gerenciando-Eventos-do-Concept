@@ -32,3 +32,10 @@ Este procedimento auxilia muito na verificação dos eventos só que tem alguns 
 2) Os eventos não são verificados de forma automática e em tempo real.
 3) Desta forma trabalha-se com eventos no passado. Isto funciona mas em caso de notificação não se aplica.
 ```
+
+Logo após estes resultados foi levantado a necessidade do monitoramento dos eventos em tempo real, ou seja, para cada novo evento realizado em algum controlador que seja enviado uma notificação
+informando os mesmos dados que consta nos relatório do Excel.
+
+A questão seria: qual plataforma utilizar para monitorar os eventos em tempo real?
+
+Após estudos foi identificado o NodeRed - https://nodered.org/ - como uma plataforma bastante prática e poderosa que atenderia muito bem as necessidades do projeto.
