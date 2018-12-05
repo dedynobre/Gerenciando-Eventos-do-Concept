@@ -18,7 +18,7 @@ uma alteração e retorna nas colunas do excel:
 
 <img src="https://github.com/dedynobre/Gerenciando-Eventos-do-Concept/blob/master/images/conc-01.jpg"/></br>
 
-A base para este desenvolvimento é um arquivo ***.bat** que 'busca' os logs de todas as máquinas que possui o Concept instalado e centraliza em um local específico na rede para que o cógido
+A base para este desenvolvimento é um arquivo **.bat** que 'busca' os logs de todas as máquinas que possui o Concept instalado e centraliza em um local específico na rede para que o cógido
 Excel possa utilizá-lo.
 
 Logo após feito este desenvolvimento a rotina de verificação de eventos melhorou e houve ganho de produtividade.
