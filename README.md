@@ -41,6 +41,6 @@ A questão seria: qual plataforma utilizar para monitorar os eventos em tempo re
 Após estudos foi identificado o NodeRed - https://nodered.org/ - como uma plataforma bastante prática e poderosa que atenderia muito bem as necessidades do projeto.
 
 Iniciamos o projeto com algumas perguntas básicas:
-<ul> Qual a frequência de verificação dos arquivos de log? </ul>
-<ul> Qual seria o meio de envio das notificações? </ul>
-<ul> Os eventos encontrados serão gravados em algum banco de dados externo? </ul>
+* Qual a frequência de verificação dos arquivos de log?
+* Qual seria o meio de envio das notificações?
+* Os eventos encontrados serão gravados em algum banco de dados externo?
