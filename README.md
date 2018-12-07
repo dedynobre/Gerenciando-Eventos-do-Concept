@@ -51,3 +51,9 @@ Respondendo as essas perguntas chegamos na seguinte conclusão:
 * As notificações seriam enviadas via Telegram devido a facilidade de integração com o NodeRed. Tem a opção de email também mas não seria tão eficiente quanto o Telegram.
 * Além das notificações via Telegram os eventos serão enviados para um banco de dados MS SQL Server que será a base para o relatório do Excel.
 ```
+
+## Arquivo de Logs
+Como falando anteriormente o Concept, quando aberto, gera um arquivo com este formato: ```**anomesdia.log**```, por exemplo **20181207.log**.
+Este arquivo tem a seguinte estrutura:
+
+![Log] (https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-02.jpg)
