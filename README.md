@@ -106,12 +106,12 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	```javascript
 	var dt = new Date(msg.payload);
 	var hrs = {
-	mes :	dt.getMonth() + 1,
-	dia :		dt.getDate(),
-	ano :		dt.getFullYear(),
-	hora :	dt.getHours(),
-	minuto :		dt.getMinutes(),
-	segundo :	dt.getMilliseconds()
+	mes:	 dt.getMonth() + 1,
+	dia:     dt.getDate(),
+	ano:	 dt.getFullYear(),
+	hora:	 dt.getHours(),
+	minuto:  dt.getMinutes(),
+	segundo: dt.getMilliseconds()
 	}
 	if (hrs.mes > 9){
     	hrs.mes = hrs.mes;
@@ -123,8 +123,6 @@ Vamos detelhar cada item(node) identificado na imagem acima:
     } else {
 		hrs.dia = "0"+hrs.dia;
     }
-
 	msg.payload = hrs.ano.toString()+hrs.mes.toString()+hrs.dia.toString()+".log";
-
 	return msg;
 	```
