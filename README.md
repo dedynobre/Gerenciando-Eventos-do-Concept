@@ -83,7 +83,7 @@ Como para este projeto o NodeRed já estava configurado, foi dado início ao des
 Basicamente, além dos componentes nativos do NodeRed, foi instalado os seguintes nodes adicioanais:
 
 + **Telegram**:
-  - Utilizado para envio das notificações caso algum item seja alterado - [Detalhes] (https://flows.nodered.org/node/node-red-contrib-telegrambot)
+  - Utilizado para envio das notificações caso algum item seja alterado - [Detalhes](https://flows.nodered.org/node/node-red-contrib-telegrambot).
   
 + **MSSQL**:
-  - Utilizado para armazenar os eventos em um banco de dados MS SQL Server - [Detalhes] (https://flows.nodered.org/node/node-red-contrib-mssql)
+  - Utilizado para armazenar os eventos em um banco de dados MS SQL Server - [Detalhes](https://flows.nodered.org/node/node-red-contrib-mssql).
