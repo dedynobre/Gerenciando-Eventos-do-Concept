@@ -37,7 +37,7 @@ informando os mesmos dados que consta nos relatório do Excel.
 
 A questão seria: qual plataforma utilizar para monitorar os eventos em tempo real?
 
-Após estudos foi identificado o NodeRed - https://nodered.org/ - como uma plataforma bastante prática e poderosa que atenderia muito bem as necessidades do projeto.
+Após estudos foi identificado o [NodeRed](https://nodered.org/) como uma plataforma bastante prática e poderosa que atenderia muito bem as necessidades do projeto.
 
 Iniciamos o projeto com algumas perguntas básicas:
 + Qual a frequência de verificação dos arquivos de log?
