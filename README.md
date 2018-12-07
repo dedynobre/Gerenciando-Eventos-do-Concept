@@ -40,20 +40,17 @@ A questão seria: qual plataforma utilizar para monitorar os eventos em tempo re
 Após estudos foi identificado o NodeRed - https://nodered.org/ - como uma plataforma bastante prática e poderosa que atenderia muito bem as necessidades do projeto.
 
 Iniciamos o projeto com algumas perguntas básicas:
-```
-* Qual a frequência de verificação dos arquivos de log?
-* Qual seria o meio de envio das notificações?
-* Os eventos encontrados serão gravados em algum banco de dados externo?
-```
++ Qual a frequência de verificação dos arquivos de log?
++ Qual seria o meio de envio das notificações?
++ Os eventos encontrados serão gravados em algum banco de dados externo?
+
 Respondendo as essas perguntas chegamos na seguinte conclusão:
-```
-* A frenquência de verificação dos arquivos de logs será de 3 segundos.
-* As notificações seriam enviadas via Telegram devido a facilidade de integração com o NodeRed. Tem a opção de email também mas não seria tão eficiente quanto o Telegram.
-* Além das notificações via Telegram os eventos serão enviados para um banco de dados MS SQL Server que será a base para o relatório do Excel.
-```
++ A frenquência de verificação dos arquivos de logs será de 3 segundos.
++ As notificações seriam enviadas via Telegram devido a facilidade de integração com o NodeRed. Tem a opção de email também mas não seria tão eficiente quanto o Telegram.
++ Além das notificações via Telegram os eventos serão enviados para um banco de dados MS SQL Server que será a base para o relatório do Excel.
 
 ## Arquivo de Logs
 Como falando anteriormente o Concept, quando aberto, gera um arquivo com este formato: ```**anomesdia.log**```, por exemplo **20181207.log**.
 Este arquivo tem a seguinte estrutura:
 
-![Log] (https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-02.jpg)
+<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-02.jpg"/></br>
