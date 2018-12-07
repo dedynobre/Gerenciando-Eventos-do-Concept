@@ -76,7 +76,7 @@ Após vários testes foi conclúido que algumas ações deixam claro que foi exe
 
 Caso a **Coluna 04** contenha os textos listado acima entende-se foi que executado algo considerado como force dentro do controlado.
 
-### NodeRed
+## NodeRed
 
 O NodeRed está rodando em uma máquina com Sistema Operacional **Windows Server 2008 R2**, podendo rodar também com máquinas Linux e Mac,  mais detalhes [Clique Aqui](https://nodered.org/).
 Como para este projeto o NodeRed já estava configurado, foi dado início ao desenvolvimento.
@@ -91,3 +91,11 @@ Basicamente, além dos componentes nativos do NodeRed, foi instalado os seguinte
 A estrutura do NodeRed ficou da seguinte forma:
 
 <img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-03.jpg"/></br>
+
+
+## Detalhes
+
+Vamos detelhar cada item identificado na imagem acima:
+
++ **Frequencia de Monitoramento**:
+  - ***(Inject)***: 
