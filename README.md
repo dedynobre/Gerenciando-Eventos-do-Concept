@@ -27,9 +27,9 @@ Logo após feito este desenvolvimento a rotina de verificação de eventos melho
 
 Este procedimento auxilia muito na verificação dos eventos só que tem alguns detalhes:
 ```
-1) Necessidade de rodar uma .bat para poder centralizar os arquivos de logs.
-2) Os eventos não são verificados de forma automática e em tempo real.
-3) Desta forma trabalha-se com eventos no passado. Isto funciona mas em caso de notificação não se aplica.
++ Necessidade de rodar uma .bat para poder centralizar os arquivos de logs.
++ Os eventos não são verificados de forma automática e em tempo real.
++ Desta forma trabalha-se com eventos no passado. Isto funciona mas em caso de notificação não se aplica.
 ```
 
 Logo após estes resultados foi levantado a necessidade do monitoramento dos eventos em tempo real, ou seja, para cada novo evento realizado em algum controlador que seja enviado uma notificação
