@@ -87,3 +87,7 @@ Basicamente, além dos componentes nativos do NodeRed, foi instalado os seguinte
   
 + **MSSQL**:
   - Utilizado para armazenar os eventos em um banco de dados MS SQL Server - [Detalhes](https://flows.nodered.org/node/node-red-contrib-mssql).
+  
+A estrutura do NodeRed ficou da seguinte forma:
+
+<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-03.jpg"/></br>
