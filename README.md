@@ -95,7 +95,7 @@ A estrutura do NodeRed ficou da seguinte forma:
 
 ## Detalhes
 
-Vamos detelhar cada item identificado na imagem acima:
+Vamos detelhar cada item(node) identificado na imagem acima:
 
 + **Frequencia de Monitoramento**:
-  - ***(Inject)***: 
+  - ***Inject***: 
