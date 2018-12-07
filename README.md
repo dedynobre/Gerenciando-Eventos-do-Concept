@@ -74,4 +74,9 @@ Após vários testes foi conclúido que algumas ações deixam claro que foi exe
 * Set
 * Enable
 
-Caso a Coluna 04 contenha os textos listado acima entende-se foi que executado algo considerado como force dentro do controlado.
+Caso a **Coluna 04** contenha os textos listado acima entende-se foi que executado algo considerado como force dentro do controlado.
+
+### NodeRed
+
+O NodeRed está rodando em uma máquina com Sistema Operacional **Windows Server 2008 R2**, podendo rodar também com máquinas Linux e Mac - mais detalhes [Clique Aqui](https://nodered.org/).
+Como para este projeto o NodeRed já estava 
