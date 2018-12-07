@@ -98,4 +98,5 @@ A estrutura do NodeRed ficou da seguinte forma:
 Vamos detelhar cada item(node) identificado na imagem acima:
 
 + **Frequencia de Monitoramento**:
-  - ***Inject***: 
+  - **Inject**: este *node* tem como objetivo enviar uma mensagem(payload) a cada x tempo. No nosso caso está sendo considerado um tempo de **2 segundos**, ou seja, a cada 2 segundos ele envia
+    um payload que irá se processado pelo node seguinte.
