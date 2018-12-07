@@ -78,5 +78,12 @@ Caso a **Coluna 04** contenha os textos listado acima entende-se foi que executa
 
 ### NodeRed
 
-O NodeRed está rodando em uma máquina com Sistema Operacional **Windows Server 2008 R2**, podendo rodar também com máquinas Linux e Mac - mais detalhes [Clique Aqui](https://nodered.org/).
-Como para este projeto o NodeRed já estava 
+O NodeRed está rodando em uma máquina com Sistema Operacional **Windows Server 2008 R2**, podendo rodar também com máquinas Linux e Mac,  mais detalhes [Clique Aqui](https://nodered.org/).
+Como para este projeto o NodeRed já estava configurado, foi dado início ao desenvolvimento.
+Basicamente, além dos componentes nativos do NodeRed, foi instalado os seguintes nodes adicioanais:
+
++ **Telegram**:
+  - Utilizado para envio das notificações caso algum item seja alterado - [Detalhes] (https://flows.nodered.org/node/node-red-contrib-telegrambot)
+  
++ **MSSQL**:
+  - Utilizado para armazenar os eventos em um banco de dados MS SQL Server - [Detalhes] (https://flows.nodered.org/node/node-red-contrib-mssql)
