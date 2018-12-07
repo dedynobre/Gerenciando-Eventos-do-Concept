@@ -99,4 +99,32 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 
 + **Frequencia de Monitoramento**:
   - **Inject**: este *node* tem como objetivo enviar uma mensagem(payload) a cada x tempo. No nosso caso está sendo considerado um tempo de **2 segundos**, ou seja, a cada 2 segundos ele envia
-    um payload que irá se processado pelo node seguinte.
+    um payload que será processado pelo node seguinte.
+	
+  - **Function**: neste *node* pode ser escrito qualquer script utilizando a linguagem *javascript* como sintaxe principal. Neste caso ele está formatando a data para podermos montar o formato do
+    arquivo de log que falamos anteriormente:
+	```javascript
+	var dt = new Date(msg.payload);
+	var hrs = {
+	mes :	dt.getMonth() + 1,
+	dia :		dt.getDate(),
+	ano :		dt.getFullYear(),
+	hora :	dt.getHours(),
+	minuto :		dt.getMinutes(),
+	segundo :	dt.getMilliseconds()
+	}
+	if (hrs.mes > 9){
+    	hrs.mes = hrs.mes;
+    } else {
+        hrs.mes = "0"+hrs.mes;
+    }
+	if (hrs.dia > 9){
+		hrs.dia = hrs.dia;
+    } else {
+		hrs.dia = "0"+hrs.dia;
+    }
+
+	msg.payload = hrs.ano.toString()+hrs.mes.toString()+hrs.dia.toString()+".log";
+
+	return msg;
+	```
