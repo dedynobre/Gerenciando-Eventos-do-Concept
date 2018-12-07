@@ -54,3 +54,12 @@ Como falando anteriormente o Concept, quando aberto, gera um arquivo com este fo
 Este arquivo tem a seguinte estrutura:
 
 <img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-02.jpg"/></br>
+
+Como podemos perceber, o arquivo é divido em colunas:
+
++ **Coluna 01** => mostra a data do evento
++ **Coluna 02** => mostra o horário do evento
++ **Coluna 03** => identifica o software(Concept)
++ **Coluna 04** => identificar o nome do projeto do controlador
++ **Coluna 05** => identifica o nome do usuário
++ **Coluna 06** => identifica as ações realizadas pelo usuário
