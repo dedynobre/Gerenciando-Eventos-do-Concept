@@ -279,4 +279,8 @@ Com todas estas configurações concluimos que ***todas*** as alterações reali
 notificações(Via Telegram) e também os eventos são gravados em um banco de dados externo que serve de base para o relatório mostrado no início.
 As vezes as notificações não são utilizas por ser consideradas desnecessárias mas deixamos configurado para poder deixar registrado o quando o NodeRed pode ajudar no gerenciamento dos eventos
 ocorridos nos controladores.
+
+### Help
+
+Caso precisem de ajuda não deixe de deixar um questionamento [Aqui](https://github.com/dedynobre/monitorando-eventos-do-concept/issues).
 	
