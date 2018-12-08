@@ -102,7 +102,7 @@ Vamos detelhar cada item(node) identificado na imagem acima:
     um payload que será processado pelo node seguinte.
 	
   + (2) **Function**: neste *node* pode ser escrito qualquer script utilizando a linguagem *javascript* como sintaxe principal. Neste caso ele está formatando a data para podermos montar o formato do
-    arquivo de log que falamos anteriormente, que tem sua saída definido no item ***msg.payload***:
+    arquivo de log que falamos anteriormente e que é gerado diariamente, que tem sua saída definido no item ***msg.payload***:
 	```javascript
 	var dt = new Date(msg.payload);
 	var hrs = {
@@ -126,3 +126,10 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	msg.payload = hrs.ano.toString()+hrs.mes.toString()+hrs.dia.toString()+".log";
 	return msg;
 	```
+  + (3) **Function**: mesmo função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior e concatenar com o nome da máquina,ficando assim ***\\nomedamaquina\concept\20181207.log***:
+    ```javascript
+	var refdata = msg.payload;
+	var maq = "\\\\nomedamaquina"+"\\"+"Concept"+"\\";
+	var caminho = maq+refdata;
+	msg.filename = caminho;
+	return msg;
