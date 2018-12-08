@@ -126,10 +126,12 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	msg.payload = hrs.ano.toString()+hrs.mes.toString()+hrs.dia.toString()+".log";
 	return msg;
 	```
-  + (3) **Function**: mesmo função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior e concatenar com o nome da máquina,ficando assim ***\\nomedamaquina\concept\20181207.log***:
+  + (3) **Function**: mesmo função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior(onde é formatado a data com extensao do arquivo de log)
+    e concatenar com o nome da máquina,ficando assim ***\\nomedamaquina\concept\20181207.log***:
     ```javascript
 	var refdata = msg.payload;
 	var maq = "\\\\nomedamaquina"+"\\"+"Concept"+"\\";
 	var caminho = maq+refdata;
 	msg.filename = caminho;
 	return msg;
+	```
