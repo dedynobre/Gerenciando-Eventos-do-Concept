@@ -135,3 +135,8 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	msg.filename = caminho;
 	return msg;
 	```
+  + (4) **File In**: tem o objetivo de 'abrir' um determinado arquivo. Ele tem a opção de especificar o nome direto na sua interface de configuração ou então passar um comando que é ***msg.filename***. 
+    Quando o nome do arquivo não sobre alteração de nome podemos espeficiar diretamente na sua interface. Como nosso arquivo ele é criado dinamicamentem em função do dia é necessários 
+	criar funções(descritas nos itens 2 e 3) para poder fornecer o nome do arquivo. O item 3 fica claro o parametro **msg.filename**.
+	Configuração do node ***File In***:
+	<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
