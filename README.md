@@ -272,3 +272,11 @@ Vamos detelhar cada item(node) identificado na imagem acima:
     por usar o node funtions:
 	<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
 	
+
+### Conclusão
+
+Com todas estas configurações concluimos que ***todas*** as alterações realizadas nos controladores, independente da máquina, será controlado. Como mostrado e se encontra configurado as 
+notificações(Via Telegram) e também os eventos são gravados em um banco de dados externo que serve de base para o relatório mostrado no início.
+As vezes as notificações não são utilizas por ser consideradas desnecessárias mas deixamos configurado para poder deixar registrado o quando o NodeRed pode ajudar no gerenciamento dos eventos
+ocorridos nos controladores.
+	
