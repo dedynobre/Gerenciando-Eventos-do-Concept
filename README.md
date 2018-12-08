@@ -127,7 +127,7 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	return msg;
 	```
   + (3) **Function**: mesmo função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior(onde é formatado a data com extensao do arquivo de log)
-    e concatenar com o nome da máquina, ficando assim ***\\nomedamaquina\concept\20181207.log***:
+    e concatenar com o nome da máquina, ficando assim ***\\\nomedamaquina\concept\20181207.log***:
     ```javascript
 	var refdata = msg.payload;
 	var maq = "\\\\nomedamaquina"+"\\"+"Concept"+"\\";
