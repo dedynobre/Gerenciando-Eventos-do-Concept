@@ -282,5 +282,5 @@ ocorridos nos controladores.
 
 ### Help
 
-Caso precisem de ajuda não deixe de deixar um questionamento [Aqui](https://github.com/dedynobre/monitorando-eventos-do-concept/issues).
+Caso precisem de ajuda, deixe seu questionamento [Aqui](https://github.com/dedynobre/monitorando-eventos-do-concept/issues).
 	
