@@ -98,10 +98,10 @@ A estrutura do NodeRed ficou da seguinte forma:
 Vamos detelhar cada item(node) identificado na imagem acima:
 
 + **Frequencia de Monitoramento**:
-  1) **Inject**: este *node* tem como objetivo enviar uma mensagem(payload) a cada x tempo. No nosso caso está sendo considerado um tempo de **2 segundos**, ou seja, a cada 2 segundos ele envia
+  + 1) **Inject**: este *node* tem como objetivo enviar uma mensagem(payload) a cada x tempo. No nosso caso está sendo considerado um tempo de **2 segundos**, ou seja, a cada 2 segundos ele envia
     um payload que será processado pelo node seguinte.
 	
-  2) **Function**: neste *node* pode ser escrito qualquer script utilizando a linguagem *javascript* como sintaxe principal. Neste caso ele está formatando a data para podermos montar o formato do
+  + 2) **Function**: neste *node* pode ser escrito qualquer script utilizando a linguagem *javascript* como sintaxe principal. Neste caso ele está formatando a data para podermos montar o formato do
     arquivo de log que falamos anteriormente, que tem sua saída definido no item ***msg.payload***:
 	```javascript
 	var dt = new Date(msg.payload);
