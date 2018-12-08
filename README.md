@@ -62,7 +62,8 @@ Como podemos perceber, o arquivo é divido em colunas:
 + **Coluna 03** => identifica o software(Concept)
 + **Coluna 04** => identificar o nome do projeto do controlador
 + **Coluna 05** => identifica o nome do usuário
-+ **Coluna 06** => identifica as ações realizadas pelo usuário
++ **Coluna 06** => identifica as ações realizadas pelo usuário. Dependendo do tamanho do texto esta coluna pode se tranformar em mais outra 
+totalizando 07 colunas.
 
 O arquivo de log é bem completo que mostra desde uma linha deletado até se o usuário abriu e fechou o software.
 Nesse arquivo de log existe alguns eventos que não são importantes no momento de monitorar as ações do usuario como por exemplo, o que foi mencionado acima, hora que o software foi aberto e fechado.
@@ -140,3 +141,59 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	dia, temos criar funções(descritas nos itens 2 e 3) para poder fornecer o nome do arquivo. O item 3 fica claro o parametro **msg.filename**.
 	Configuração do node ***File In***:
 	<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
+  + (5) **CSV**: converte o arquivo de log em um arquivo csv. Como foi mencioanado em cima, o arquivo de log é basicamente formado por colunas então, a conversão do arquivo de log em um arquivo csv
+    é para facilitar a extração da informações contidas nessa coluna. Com isso é possivel fazer comparações de cada coluna e buscar uma string qualquer contida dentra daquela coluna. Esse node tem 
+	como saída uma mensagem no parâmetro ***msg.payload***.
+  + (6) **Function**: essa função, basicamente, verifica se nas colunas específicas possuem strings que são consideradas modificações(conforme lista informada anteriormete):
+    ```javascript
+	var a = msg.payload.length;
+	var s;
+	var k;
+	var r;
+	var p;
+	var t1;
+	var t2;
+	var t3;
+	var t4;
+	var j = 0;
+	var b = [];
+	var hr1;
+	var hr2;
+	var hr3;
+	var txt1;
+	var txt2;
+	var txt3;
+	for(s = 0; s < a; s++){
+		if (msg.payload[s].col5 === undefined){
+			txt1 = "";
+		} else { txt1 = msg.payload[s].col5; }
+		if (msg.payload[s].col6 === undefined){
+			txt2 = "";
+		} else { txt2 = msg.payload[s].col6; }
+		if (msg.payload[s].col7 === undefined){
+			txt3 = "";
+		} else { txt3 = msg.payload[s].col7; }    
+		hr1 = msg.payload[s].col1;
+		hr2 = hr1.split(" > Concept");
+		k = msg.payload[s].col4;
+		t1 = k.indexOf('Disable');
+		t2 = k.indexOf('Deleted');
+		t3 = k.indexOf('Written');
+		t4 = k.indexOf('Set');
+		r = k.indexOf('Enable');
+		if ((t1 > 0) || (t2 > 0) || (t3 > 0) || (t4 > 0)) { p = 0; }
+		if (r > 0) { p = 1; }
+		if ((t1 > 0) || (r > 0) || (t2 > 0) || (t3 > 0) || (t4 > 0)){
+			j = j + 1;
+			b[j] = {
+				status : p,
+				horario : hr2,
+				projeto  : msg.payload[s].col2,
+				usuario : msg.payload[s].col3,
+				desc    : msg.payload[s].col4 + " " + txt1 + " " +  txt2 + " " + txt3
+			  }
+		}
+	}
+	msg.payload = b;
+	return msg;
+	```
