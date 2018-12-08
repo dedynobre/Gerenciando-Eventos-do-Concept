@@ -138,13 +138,13 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	```
   + (4) **File In**: tem o objetivo de 'abrir' um determinado arquivo. Ele tem a opção de especificar o nome direto na sua interface de configuração ou então passar um parâmetro que é ***msg.filename*** 
     que contém o caminho do arquivo. Quando o nome do arquivo não sofre alteração de nome podemos espeficiar diretamente na sua interface. Como nosso arquivo é criado dinamicamente em função do 
-	dia, temos criar funções(descritas nos itens 2 e 3) para poder fornecer o nome do arquivo. O item 3 fica claro o parametro **msg.filename**.
+	dia, temos criar funções(descritas nos itens 2 e 3) para poder fornecer o nome do arquivo. O item 3 fica claro o parâmetro **msg.filename**.
 	Configuração do node ***File In***:
 	<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
   + (5) **CSV**: converte o arquivo de log em um arquivo csv. Como foi mencioanado em cima, o arquivo de log é basicamente formado por colunas então, a conversão do arquivo de log em um arquivo csv
     é para facilitar a extração da informações contidas nessa coluna. Com isso é possivel fazer comparações de cada coluna e buscar uma string qualquer contida dentra daquela coluna. Esse node tem 
 	como saída uma mensagem no parâmetro ***msg.payload***.
-  + (6) **Function**: essa função, basicamente, verifica se nas colunas específicas possuem strings que são consideradas modificações(conforme lista informada anteriormete):
+  + (6) **Function**: essa função, basicamente, verifica se nas colunas específicas possuem strings que são consideradas modificações(conforme lista informada anteriormente):
     ```javascript
 	var a = msg.payload.length;
 	var s;
@@ -197,3 +197,78 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	msg.payload = b;
 	return msg;
 	```
+  + (7) **RBE**: este node só tem valor na saída quando há uma alteração na sua entrada. Se notarmos, o script acima sempre fica monitorando as linhas dos arquivo de log e checa se ele tem 
+    as string consideradas como modificações. Caso existe ele escreve as colunas que queremos no ***payload***. Como esta verificação é feita a cada 2 segundos, então a cada 2 segundos ele iria
+	disparar uma notificação pois existe uma mudança. É ai que entra o node ***RBE***, se eu tenho um valor novo a saída é disparada e é enviada para node seguinte. Se não tenho valor novo ele 
+	mantém a saída sem ação.
+  + (8) **Function**: esta função formata o texto para ser enviado, via Telegram para o(s) destinatário(s):
+    ```javascript
+	var b = msg.payload.length - 1;
+	var a = msg.payload;
+	var st;
+	if (a[b].status === 0){
+		st = "*Alteração Realizada*";
+	}
+	if (a[b].status === 1){
+		st = "*Alteração Normalizada*"; 
+	}
+	var texto = "";
+	texto += "\n";
+	texto += "Data/Hora: ";
+	texto += a[b].horario;
+	texto += "\n";
+	texto += "Projeto: ";
+	texto += a[b].projeto;
+	texto += "\n";
+	texto += "Usuario: ";
+	texto += a[b].usuario;
+	texto += "\n";
+	texto += "Descrição: ";
+	texto += a[b].desc;
+	msg.payload = {
+		content : texto,
+		type : 'message',
+		chatId : -1001497128083
+    
+	}
+	var dt = a[b].horario[0];
+	var data = dt.split(" ")[0];
+	var hora = dt.split("/")[1];
+	var dia;
+	var mes;
+	var ano;
+	var horario = dt.split(" ")[1];
+	dia  = data.split("/")[0];
+	mes  = data.split("/")[1];
+	ano  = data.split("/")[2];
+	var dt2 = ano + "-"+mes+'-'+dia+ " "+horario;
+	msg.topic = {
+    	data : dt2,
+		local : "(SE-23)",
+		projeto : a[b].projeto,
+		usuario : a[b].usuario,
+		descricao : a[b].desc
+    
+	};
+	return msg;
+	```
+	O parâmetro ***msg.payload*** define estrutura de mensagem para envio via Telegram. O parâmetro ***msg.topic*** define a estrutura de mensagem para envia de dados para banco de dados.
+    + (9) **Telegram**: Configuração do ***bot** para envio das mensagens. Mais detalhes sobre criação de um ***bot*** [Clique Aqui!](https://medium.com/tht-things-hackers-team/10-passos-para-se-criar-um-bot-no-telegram-3c1848e404c4).
+    + (10) **Function**: recebe a mensagem do item 08 através do parâmetro ***msg.topic*** e formata para envio dos eventos para banco de dados:
+	```javascript
+	data = msg.topic.data;
+	data = new Date(data).toISOString().slice(0, 19).replace('T', ' ')
+	local = msg.topic.local;
+	projeto = msg.topic.projeto;
+	usuario = msg.topic.usuario;
+	descricao = msg.topic.descricao.split("'");
+	pld =       "INSERT INTO [Concept].[dbo].[Eventos] "
+	pld = pld + "(dataHora, local, projeto, usuario, descricao) "
+	pld = pld + "VALUES ('" + data + "', '" + local + "', '" + projeto + "', '" + usuario + "', '" + descricao + "')"
+	msg.payload = pld;
+	return msg;
+	```
+  + (11) **MSSQL**: node para gerenciar as informações do banco de dados. As queries podem ser passadas diretamente na interface de configuração ou passadas via ***node functions***. Optamos
+    por usar o node funtions:
+	<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
+	
