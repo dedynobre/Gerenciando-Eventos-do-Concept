@@ -100,180 +100,188 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 
 
 1. **Inject**: 
-  + este *node* tem como objetivo enviar uma mensagem(payload) a cada x tempo. No nosso caso está sendo considerado um tempo de **2 segundos**, ou seja, a cada 2 segundos ele envia
-    um payload que será processado pelo node seguinte.
+	+ este *node* tem como objetivo enviar uma mensagem(payload) a cada x tempo. No nosso caso está sendo considerado um tempo de **2 segundos**, ou seja, a cada 2 segundos ele envia
+	um payload que será processado pelo node seguinte.
 
-+ (2) **Function**: neste *node* pode ser escrito qualquer script utilizando a linguagem *javascript* como sintaxe principal. Neste caso ele está formatando a data para podermos montar o formato do
-arquivo de log que falamos anteriormente e que é gerado diariamente, que tem sua saída definido no item ***msg.payload***:
-```javascript
-var dt = new Date(msg.payload);
-var hrs = {
-mes:	 dt.getMonth() + 1,
-dia:     dt.getDate(),
-ano:	 dt.getFullYear(),
-hora:	 dt.getHours(),
-minuto:  dt.getMinutes(),
-segundo: dt.getMilliseconds()
-}
-if (hrs.mes > 9){
-	hrs.mes = hrs.mes;
-} else {
-	hrs.mes = "0"+hrs.mes;
-}
-if (hrs.dia > 9){
-	hrs.dia = hrs.dia;
-} else {
-	hrs.dia = "0"+hrs.dia;
-}
-msg.payload = hrs.ano.toString()+hrs.mes.toString()+hrs.dia.toString()+".log";
-return msg;
-```
-+ (3) **Function**: mesmo função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior(onde é formatado a data com extensao do arquivo de log)
-e concatenar com o nome da máquina, ficando assim ***\\\nomedamaquina\concept\20181207.log***:
-```javascript
-var refdata = msg.payload;
-var maq = "\\\\nomedamaquina"+"\\"+"Concept"+"\\";
-var caminho = maq+refdata;
-msg.filename = caminho;
-return msg;
-```
-+ (4) **File In**: tem o objetivo de 'abrir' um determinado arquivo. Ele tem a opção de especificar o nome direto na sua interface de configuração ou então passar um parâmetro que é ***msg.filename*** 
-que contém o caminho do arquivo. Quando o nome do arquivo não sofre alteração de nome podemos espeficiar diretamente na sua interface. Como nosso arquivo é criado dinamicamente em função do 
-dia, temos criar funções(descritas nos itens 2 e 3) para poder fornecer o nome do arquivo. O item 3 fica claro o parâmetro **msg.filename**.
-Configuração do node ***File In***:
-<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
-+ (5) **CSV**: converte o arquivo de log em um arquivo csv. Como foi mencioanado em cima, o arquivo de log é basicamente formado por colunas então, a conversão do arquivo de log em um arquivo csv
-é para facilitar a extração da informações contidas nessa coluna. Com isso é possivel fazer comparações de cada coluna e buscar uma string qualquer contida dentra daquela coluna. Esse node tem 
-como saída uma mensagem no parâmetro ***msg.payload***.
-+ (6) **Function**: essa função, basicamente, verifica se nas colunas específicas possuem strings que são consideradas modificações(conforme lista informada anteriormente):
-```javascript
-var a = msg.payload.length;
-var s;
-var k;
-var r;
-var p;
-var t1;
-var t2;
-var t3;
-var t4;
-var j = 0;
-var b = [];
-var hr1;
-var hr2;
-var hr3;
-var txt1;
-var txt2;
-var txt3;
-for(s = 0; s < a; s++){
-	if (msg.payload[s].col5 === undefined){
-		txt1 = "";
-	} else { txt1 = msg.payload[s].col5; }
-	if (msg.payload[s].col6 === undefined){
-		txt2 = "";
-	} else { txt2 = msg.payload[s].col6; }
-	if (msg.payload[s].col7 === undefined){
-		txt3 = "";
-	} else { txt3 = msg.payload[s].col7; }    
-	hr1 = msg.payload[s].col1;
-	hr2 = hr1.split(" > Concept");
-	k = msg.payload[s].col4;
-	t1 = k.indexOf('Disable');
-	t2 = k.indexOf('Deleted');
-	t3 = k.indexOf('Written');
-	t4 = k.indexOf('Set');
-	r = k.indexOf('Enable');
-	if ((t1 > 0) || (t2 > 0) || (t3 > 0) || (t4 > 0)) { p = 0; }
-	if (r > 0) { p = 1; }
-	if ((t1 > 0) || (r > 0) || (t2 > 0) || (t3 > 0) || (t4 > 0)){
-		j = j + 1;
-		b[j] = {
-			status : p,
-			horario : hr2,
-			projeto  : msg.payload[s].col2,
-			usuario : msg.payload[s].col3,
-			desc    : msg.payload[s].col4 + " " + txt1 + " " +  txt2 + " " + txt3
-		  }
+2. **Function**: 
+	+ neste *node* pode ser escrito qualquer script utilizando a linguagem *javascript* como sintaxe principal. Neste caso ele está formatando a data para podermos montar o formato do
+    arquivo de log que falamos anteriormente e que é gerado diariamente, que tem sua saída definido no item ***msg.payload***:
+	```javascript
+	var dt = new Date(msg.payload);
+	var hrs = {
+	mes:	 dt.getMonth() + 1,
+	dia:     dt.getDate(),
+	ano:	 dt.getFullYear(),
+	hora:	 dt.getHours(),
+	minuto:  dt.getMinutes(),
+	segundo: dt.getMilliseconds()
 	}
-}
-msg.payload = b;
-return msg;
-```
-+ (7) **RBE**: este node só tem valor na saída quando há uma alteração na sua entrada. Se notarmos, o script acima sempre fica monitorando as linhas dos arquivo de log e checa se ele tem 
-as string consideradas como modificações. Caso existe ele escreve as colunas que queremos no ***payload***. Como esta verificação é feita a cada 2 segundos, então a cada 2 segundos ele iria
-disparar uma notificação pois existe uma mudança. É ai que entra o node ***RBE***, se eu tenho um valor novo a saída é disparada e é enviada para node seguinte. Se não tenho valor novo ele 
-mantém a saída sem ação.
-+ (8) **Function**: esta função formata o texto para ser enviado, via Telegram para o(s) destinatário(s):
-```javascript
-var b = msg.payload.length - 1;
-var a = msg.payload;
-var st;
-if (a[b].status === 0){
-	st = "*Alteração Realizada*";
-}
-if (a[b].status === 1){
-	st = "*Alteração Normalizada*"; 
-}
-var texto = "";
-texto += "\n";
-texto += "Data/Hora: ";
-texto += a[b].horario;
-texto += "\n";
-texto += "Projeto: ";
-texto += a[b].projeto;
-texto += "\n";
-texto += "Usuario: ";
-texto += a[b].usuario;
-texto += "\n";
-texto += "Descrição: ";
-texto += a[b].desc;
-msg.payload = {
-	content : texto,
-	type : 'message',
-	chatId : -1001497128083
+	if (hrs.mes > 9){
+		hrs.mes = hrs.mes;
+	} else {
+		hrs.mes = "0"+hrs.mes;
+	}
+	if (hrs.dia > 9){
+		hrs.dia = hrs.dia;
+	} else {
+		hrs.dia = "0"+hrs.dia;
+	}
+	msg.payload = hrs.ano.toString()+hrs.mes.toString()+hrs.dia.toString()+".log";
+	return msg;
+	```
+	+ (3) **Function**: mesmo função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior(onde é formatado a data com extensao do arquivo de log)
+	e concatenar com o nome da máquina, ficando assim ***\\\nomedamaquina\concept\20181207.log***:
+	```javascript
+	var refdata = msg.payload;
+	var maq = "\\\\nomedamaquina"+"\\"+"Concept"+"\\";
+	var caminho = maq+refdata;
+	msg.filename = caminho;
+	return msg;
+	```
+4. **File In**: 
+	+ tem o objetivo de 'abrir' um determinado arquivo. Ele tem a opção de especificar o nome direto na sua interface de configuração ou então passar um parâmetro que é ***msg.filename*** 
+	que contém o caminho do arquivo. Quando o nome do arquivo não sofre alteração de nome podemos espeficiar diretamente na sua interface. Como nosso arquivo é criado dinamicamente em função do 
+	dia, temos criar funções(descritas nos itens 2 e 3) para poder fornecer o nome do arquivo. O item 3 fica claro o parâmetro **msg.filename**.
+	Configuração do node ***File In***:
+	<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
+5. **CSV**: 
+	+ converte o arquivo de log em um arquivo csv. Como foi mencioanado em cima, o arquivo de log é basicamente formado por colunas então, a conversão do arquivo de log em um arquivo csv
+	é para facilitar a extração da informações contidas nessa coluna. Com isso é possivel fazer comparações de cada coluna e buscar uma string qualquer contida dentra daquela coluna. Esse node tem 
+	como saída uma mensagem no parâmetro ***msg.payload***.
+6. **Function**: 
+	+ essa função, basicamente, verifica se nas colunas específicas possuem strings que são consideradas modificações(conforme lista informada anteriormente):
+	```javascript
+	var a = msg.payload.length;
+	var s;
+	var k;
+	var r;
+	var p;
+	var t1;
+	var t2;
+	var t3;
+	var t4;
+	var j = 0;
+	var b = [];
+	var hr1;
+	var hr2;
+	var hr3;
+	var txt1;
+	var txt2;
+	var txt3;
+	for(s = 0; s < a; s++){
+		if (msg.payload[s].col5 === undefined){
+			txt1 = "";
+		} else { txt1 = msg.payload[s].col5; }
+		if (msg.payload[s].col6 === undefined){
+			txt2 = "";
+		} else { txt2 = msg.payload[s].col6; }
+		if (msg.payload[s].col7 === undefined){
+			txt3 = "";
+		} else { txt3 = msg.payload[s].col7; }    
+		hr1 = msg.payload[s].col1;
+		hr2 = hr1.split(" > Concept");
+		k = msg.payload[s].col4;
+		t1 = k.indexOf('Disable');
+		t2 = k.indexOf('Deleted');
+		t3 = k.indexOf('Written');
+		t4 = k.indexOf('Set');
+		r = k.indexOf('Enable');
+		if ((t1 > 0) || (t2 > 0) || (t3 > 0) || (t4 > 0)) { p = 0; }
+		if (r > 0) { p = 1; }
+		if ((t1 > 0) || (r > 0) || (t2 > 0) || (t3 > 0) || (t4 > 0)){
+			j = j + 1;
+			b[j] = {
+				status : p,
+				horario : hr2,
+				projeto  : msg.payload[s].col2,
+				usuario : msg.payload[s].col3,
+				desc    : msg.payload[s].col4 + " " + txt1 + " " +  txt2 + " " + txt3
+			  }
+		}
+	}
+	msg.payload = b;
+	return msg;
+	```
++ (7) **RBE**: 
+	+ este node só tem valor na saída quando há uma alteração na sua entrada. Se notarmos, o script acima sempre fica monitorando as linhas dos arquivo de log e checa se ele tem 
+	as string consideradas como modificações. Caso existe ele escreve as colunas que queremos no ***payload***. Como esta verificação é feita a cada 2 segundos, então a cada 2 segundos ele iria
+	disparar uma notificação pois existe uma mudança. É ai que entra o node ***RBE***, se eu tenho um valor novo a saída é disparada e é enviada para node seguinte. Se não tenho valor novo ele 
+	mantém a saída sem ação.
+8. **Function**: 
+	+ esta função formata o texto para ser enviado, via Telegram para o(s) destinatário(s):
+	```javascript
+	var b = msg.payload.length - 1;
+	var a = msg.payload;
+	var st;
+	if (a[b].status === 0){
+		st = "*Alteração Realizada*";
+	}
+	if (a[b].status === 1){
+		st = "*Alteração Normalizada*"; 
+	}
+	var texto = "";
+	texto += "\n";
+	texto += "Data/Hora: ";
+	texto += a[b].horario;
+	texto += "\n";
+	texto += "Projeto: ";
+	texto += a[b].projeto;
+	texto += "\n";
+	texto += "Usuario: ";
+	texto += a[b].usuario;
+	texto += "\n";
+	texto += "Descrição: ";
+	texto += a[b].desc;
+	msg.payload = {
+		content : texto,
+		type : 'message',
+		chatId : -1001497128083
 
-}
-var dt = a[b].horario[0];
-var data = dt.split(" ")[0];
-var hora = dt.split("/")[1];
-var dia;
-var mes;
-var ano;
-var horario = dt.split(" ")[1];
-dia  = data.split("/")[0];
-mes  = data.split("/")[1];
-ano  = data.split("/")[2];
-var dt2 = ano + "-"+mes+'-'+dia+ " "+horario;
-msg.topic = {
-	data : dt2,
-	local : "(SE-23)",
-	projeto : a[b].projeto,
-	usuario : a[b].usuario,
-	descricao : a[b].desc
+	}
+	var dt = a[b].horario[0];
+	var data = dt.split(" ")[0];
+	var hora = dt.split("/")[1];
+	var dia;
+	var mes;
+	var ano;
+	var horario = dt.split(" ")[1];
+	dia  = data.split("/")[0];
+	mes  = data.split("/")[1];
+	ano  = data.split("/")[2];
+	var dt2 = ano + "-"+mes+'-'+dia+ " "+horario;
+	msg.topic = {
+		data : dt2,
+		local : "(SE-23)",
+		projeto : a[b].projeto,
+		usuario : a[b].usuario,
+		descricao : a[b].desc
 
-};
-return msg;
-```
-O parâmetro ***msg.payload*** define estrutura de mensagem para envio via Telegram. O parâmetro ***msg.topic*** define a estrutura de mensagem para envia de dados para banco de dados.
-+ (9) **Telegram**: Configuração do ***bot** para envio das mensagens. Mais detalhes sobre criação de um ***bot*** [Clique Aqui!](https://medium.com/tht-things-hackers-team/10-passos-para-se-criar-um-bot-no-telegram-3c1848e404c4).
-+ (10) **Function**: recebe a mensagem do item 08 através do parâmetro ***msg.topic*** e formata para envio dos eventos para banco de dados:
-```javascript
-data = msg.topic.data;
-data = new Date(data).toISOString().slice(0, 19).replace('T', ' ')
-local = msg.topic.local;
-projeto = msg.topic.projeto;
-usuario = msg.topic.usuario;
-descricao = msg.topic.descricao.split("'");
-pld =       "INSERT INTO [Concept].[dbo].[Eventos] "
-pld = pld + "(dataHora, local, projeto, usuario, descricao) "
-pld = pld + "VALUES ('" + data + "', '" + local + "', '" + projeto + "', '" + usuario + "', '" + descricao + "')"
-msg.payload = pld;
-return msg;
-```
-+ (11) **MSSQL**: node para gerenciar as informações do banco de dados. As queries podem ser passadas diretamente na interface de configuração ou passadas via ***node functions***. Optamos
-por usar o node funtions:
-<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
+	};
+	return msg;
+	```
+	O parâmetro ***msg.payload*** define estrutura de mensagem para envio via Telegram. O parâmetro ***msg.topic*** define a estrutura de mensagem para envia de dados para banco de dados.
+9. **Telegram**: 
+	+ Configuração do ***bot** para envio das mensagens. Mais detalhes sobre criação de um ***bot*** [Clique Aqui!](https://medium.com/tht-things-hackers-team/10-passos-para-se-criar-um-bot-no-telegram-3c1848e404c4).
+10. **Function**: 
+	+ recebe a mensagem do item 08 através do parâmetro ***msg.topic*** e formata para envio dos eventos para banco de dados:
+	```javascript
+	data = msg.topic.data;
+	data = new Date(data).toISOString().slice(0, 19).replace('T', ' ')
+	local = msg.topic.local;
+	projeto = msg.topic.projeto;
+	usuario = msg.topic.usuario;
+	descricao = msg.topic.descricao.split("'");
+	pld =       "INSERT INTO [Concept].[dbo].[Eventos] "
+	pld = pld + "(dataHora, local, projeto, usuario, descricao) "
+	pld = pld + "VALUES ('" + data + "', '" + local + "', '" + projeto + "', '" + usuario + "', '" + descricao + "')"
+	msg.payload = pld;
+	return msg;
+	```
+11. **MSSQL**: 
+	+ node para gerenciar as informações do banco de dados. As queries podem ser passadas diretamente na interface de configuração ou passadas via ***node functions***. Optamos
+	por usar o node funtions:
+	<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
 	
-
 ## Conclusão
 
 Com todas estas configurações concluimos que ***todas*** as alterações realizadas nos controladores, independente da máquina, será controlado. Como mostrado e se encontra configurado as 
