@@ -100,11 +100,11 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 
 
 1. **Inject**: 
-	+ este *node* tem como objetivo enviar uma mensagem(payload) a cada x tempo. No nosso caso está sendo considerado um tempo de **2 segundos**, ou seja, a cada 2 segundos ele envia
+	+ Este *node* tem como objetivo enviar uma mensagem(payload) a cada x tempo. No nosso caso está sendo considerado um tempo de **2 segundos**, ou seja, a cada 2 segundos ele envia
 	um payload que será processado pelo node seguinte.
 
 2. **Function**: 
-	+ neste *node* pode ser escrito qualquer script utilizando a linguagem *javascript* como sintaxe principal. Neste caso ele está formatando a data para podermos montar o formato do
+	+ Neste *node* pode ser escrito qualquer script utilizando a linguagem *javascript* como sintaxe principal. Neste caso ele está formatando a data para podermos montar o formato do
     arquivo de log que falamos anteriormente e que é gerado diariamente, que tem sua saída definido no item ***msg.payload***:
 	```javascript
 	var dt = new Date(msg.payload);
@@ -130,7 +130,7 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	return msg;
 	```
 3. **Function**: 
-	+ mesmo função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior(onde é formatado a data com extensao do arquivo de log)
+	+ Mesma função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior(onde é formatado a data com extensao do arquivo de log)
 	e concatenar com o nome da máquina, ficando assim ***\\\nomedamaquina\concept\20181207.log***:
 	```javascript
 	var refdata = msg.payload;
@@ -140,13 +140,13 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	return msg;
 	```
 4. **File In**: 
-	+ tem o objetivo de 'abrir' um determinado arquivo. Ele tem a opção de especificar o nome direto na sua interface de configuração ou então passar um parâmetro que é ***msg.filename*** 
+	+ Tem o objetivo de 'abrir' um determinado arquivo. Ele tem a opção de especificar o nome direto na sua interface de configuração ou então passar um parâmetro que é ***msg.filename*** 
 	que contém o caminho do arquivo. Quando o nome do arquivo não sofre alteração de nome podemos espeficiar diretamente na sua interface. Como nosso arquivo é criado dinamicamente em função do 
 	dia, temos criar funções(descritas nos itens 2 e 3) para poder fornecer o nome do arquivo. O item 3 fica claro o parâmetro **msg.filename**.
 	Configuração do node ***File In***:
 	<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
 5. **CSV**: 
-	+ converte o arquivo de log em um arquivo csv. Como foi mencioanado em cima, o arquivo de log é basicamente formado por colunas então, a conversão do arquivo de log em um arquivo csv
+	+ Converte o arquivo de log em um arquivo csv. Como foi mencioanado em cima, o arquivo de log é basicamente formado por colunas então, a conversão do arquivo de log em um arquivo csv
 	é para facilitar a extração da informações contidas nessa coluna. Com isso é possivel fazer comparações de cada coluna e buscar uma string qualquer contida dentra daquela coluna. Esse node tem 
 	como saída uma mensagem no parâmetro ***msg.payload***.
 6. **Function**: 
@@ -204,12 +204,12 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	return msg;
 	```
 7. **RBE**: 
-	+ este node só tem valor na saída quando há uma alteração na sua entrada. Se notarmos, o script acima sempre fica monitorando as linhas dos arquivo de log e checa se ele tem 
+	+ Este node só tem valor na saída quando há uma alteração na sua entrada. Se notarmos, o script acima sempre fica monitorando as linhas dos arquivo de log e checa se ele tem 
 	as string consideradas como modificações. Caso existe ele escreve as colunas que queremos no ***payload***. Como esta verificação é feita a cada 2 segundos, então a cada 2 segundos ele iria
 	disparar uma notificação pois existe uma mudança. É ai que entra o node ***RBE***, se eu tenho um valor novo a saída é disparada e é enviada para node seguinte. Se não tenho valor novo ele 
 	mantém a saída sem ação.
 8. **Function**: 
-	+ esta função formata o texto para ser enviado, via Telegram para o(s) destinatário(s):
+	+ Esta função formata o texto para ser enviado, via Telegram para o(s) destinatário(s):
 	```javascript
 	var b = msg.payload.length - 1;
 	var a = msg.payload;
@@ -260,11 +260,11 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	};
 	return msg;
 	```
-	O parâmetro ***msg.payload*** define estrutura de mensagem para envio via Telegram. O parâmetro ***msg.topic*** define a estrutura de mensagem para envia de dados para banco de dados.
+	+ O parâmetro ***msg.payload*** define estrutura de mensagem para envio via Telegram. O parâmetro ***msg.topic*** define a estrutura de mensagem para envia de dados para banco de dados.
 9. **Telegram**: 
 	+ Configuração do ***bot** para envio das mensagens. Mais detalhes sobre criação de um ***bot*** [Clique Aqui!](https://medium.com/tht-things-hackers-team/10-passos-para-se-criar-um-bot-no-telegram-3c1848e404c4).
 10. **Function**: 
-	+ recebe a mensagem do item 08 através do parâmetro ***msg.topic*** e formata para envio dos eventos para banco de dados:
+	+ Recebe a mensagem do item 08 através do parâmetro ***msg.topic*** e formata para envio dos eventos para banco de dados:
 	```javascript
 	data = msg.topic.data;
 	data = new Date(data).toISOString().slice(0, 19).replace('T', ' ')
@@ -279,7 +279,7 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	return msg;
 	```
 11. **MSSQL**: 
-	+ node para gerenciar as informações do banco de dados. As queries podem ser passadas diretamente na interface de configuração ou passadas via ***node functions***. Optamos
+	+ Node para gerenciar as informações do banco de dados. As queries podem ser passadas diretamente na interface de configuração ou passadas via ***node functions***. Optamos
 	por usar o node funtions:
 	<img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-04.jpg"/></br>
 	
