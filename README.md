@@ -129,7 +129,8 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	msg.payload = hrs.ano.toString()+hrs.mes.toString()+hrs.dia.toString()+".log";
 	return msg;
 	```
-	+ (3) **Function**: mesmo função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior(onde é formatado a data com extensao do arquivo de log)
+3. **Function**: 
+	+ mesmo função do item anterior. Neste item ele tem como objetivo trabalhar a mensagem enviada pela função anterior(onde é formatado a data com extensao do arquivo de log)
 	e concatenar com o nome da máquina, ficando assim ***\\\nomedamaquina\concept\20181207.log***:
 	```javascript
 	var refdata = msg.payload;
@@ -202,7 +203,7 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	msg.payload = b;
 	return msg;
 	```
-+ (7) **RBE**: 
+7. **RBE**: 
 	+ este node só tem valor na saída quando há uma alteração na sua entrada. Se notarmos, o script acima sempre fica monitorando as linhas dos arquivo de log e checa se ele tem 
 	as string consideradas como modificações. Caso existe ele escreve as colunas que queremos no ***payload***. Como esta verificação é feita a cada 2 segundos, então a cada 2 segundos ele iria
 	disparar uma notificação pois existe uma mudança. É ai que entra o node ***RBE***, se eu tenho um valor novo a saída é disparada e é enviada para node seguinte. Se não tenho valor novo ele 
