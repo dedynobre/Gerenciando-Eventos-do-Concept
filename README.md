@@ -262,7 +262,7 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 	```
 	+ O parâmetro ***msg.payload*** define estrutura de mensagem para envio via Telegram. O parâmetro ***msg.topic*** define a estrutura de mensagem para envia de dados para banco de dados.
 9. **Telegram**: 
-	+ Configuração do ***bot** para envio das mensagens. Mais detalhes sobre criação de um ***bot*** [Clique Aqui!](https://medium.com/tht-things-hackers-team/10-passos-para-se-criar-um-bot-no-telegram-3c1848e404c4).
+	+ Configuração do **bot** para envio das mensagens. Mais detalhes sobre criação de um ***bot*** [Clique Aqui!](https://medium.com/tht-things-hackers-team/10-passos-para-se-criar-um-bot-no-telegram-3c1848e404c4).
 10. **Function**: 
 	+ Recebe a mensagem do item 08 através do parâmetro ***msg.topic*** e formata para envio dos eventos para banco de dados:
 	```javascript
