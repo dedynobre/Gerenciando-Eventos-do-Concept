@@ -50,7 +50,7 @@ Respondendo as essas perguntas chegamos na seguinte conclusão:
 + Além das notificações via Telegram os eventos serão enviados para um banco de dados MS SQL Server que será a base para o relatório do Excel.
 
 ## Arquivo de Logs
-Como falado anteriormente o Concept, quando aberto, gera um arquivo com este formato: ```**anomesdia.log**```, por exemplo **20181207.log**.
+Como falado anteriormente o Concept, quando aberto, gera um arquivo com este formato: ```anomesdia.log```, por exemplo **20181207.log**.
 Este arquivo tem a seguinte estrutura:
 
 <img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-02.jpg"/></br>
