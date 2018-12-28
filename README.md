@@ -37,7 +37,7 @@ informando os mesmos dados que consta nos relatório do Excel.
 
 A questão seria: qual plataforma utilizar para monitorar os eventos em tempo real?
 
-Após estudos foi identificado o [NodeRed](https://nodered.org/) como uma plataforma bastante prática e poderosa que atenderia muito bem as necessidades do projeto.
+Após estudos foi identificado o [Node-Red](https://nodered.org/) como uma plataforma bastante prática e poderosa que atenderia muito bem as necessidades do projeto.
 
 Iniciamos o projeto com algumas perguntas básicas:
 + Qual a frequência de verificação dos arquivos de log?
@@ -46,7 +46,7 @@ Iniciamos o projeto com algumas perguntas básicas:
 
 Respondendo as essas perguntas chegamos na seguinte conclusão:
 + A frenquência de verificação dos arquivos de logs será de 3 segundos.
-+ As notificações seriam enviadas via Telegram devido a facilidade de integração com o NodeRed. Tem a opção de email também mas não seria tão eficiente quanto o Telegram.
++ As notificações seriam enviadas via Telegram devido a facilidade de integração com o Node-Red. Tem a opção de email também mas não seria tão eficiente quanto o Telegram.
 + Além das notificações via Telegram os eventos serão enviados para um banco de dados MS SQL Server que será a base para o relatório do Excel.
 
 ## Arquivo de Logs
@@ -77,11 +77,11 @@ Após vários testes foi conclúido que algumas ações deixam claro que foi exe
 
 Caso a **Coluna 04** contenha os textos listado acima entende-se foi que executado algo considerado como force dentro do controlado.
 
-## NodeRed
+## Node-Red
 
-O NodeRed está rodando em uma máquina com Sistema Operacional **Windows Server 2008 R2**, podendo rodar também com máquinas Linux e Mac,  mais detalhes [Clique Aqui](https://nodered.org/).
-Como para este projeto o NodeRed já estava configurado, foi dado início ao desenvolvimento.
-Basicamente, além dos componentes nativos do NodeRed, foi instalado os seguintes nodes adicioanais:
+O Node-Red está rodando em uma máquina com Sistema Operacional **Windows Server 2008 R2**, podendo rodar também com máquinas Linux e Mac,  mais detalhes [Clique Aqui](https://nodered.org/).
+Como para este projeto o Node-Red já estava configurado, foi dado início ao desenvolvimento.
+Basicamente, além dos componentes nativos do Node-Red, foi instalado os seguintes nodes adicioanais:
 
 + **Telegram**:
   - Utilizado para envio das notificações caso algum item seja alterado - [Detalhes](https://flows.nodered.org/node/node-red-contrib-telegrambot).
@@ -89,7 +89,7 @@ Basicamente, além dos componentes nativos do NodeRed, foi instalado os seguinte
 + **MSSQL**:
   - Utilizado para armazenar os eventos em um banco de dados MS SQL Server - [Detalhes](https://flows.nodered.org/node/node-red-contrib-mssql).
   
-A estrutura do NodeRed ficou da seguinte forma:
+A estrutura do Node-Red ficou da seguinte forma:
 
 <img src="https://github.com/dedynobre/monitorando-eventos-do-concept/blob/master/images/conc-03.jpg"/></br>
 
@@ -287,7 +287,7 @@ Vamos detelhar cada item(node) identificado na imagem acima:
 
 Com todas estas configurações concluimos que ***todas*** as alterações realizadas nos controladores, independente da máquina, será controlado. Como mostrado e se encontra configurado as 
 notificações(Via Telegram) e também os eventos são gravados em um banco de dados externo que serve de base para o relatório mostrado no início.
-As vezes as notificações não são utilizas por ser consideradas desnecessárias mas deixamos configurado para poder deixar registrado o quando o NodeRed pode ajudar no gerenciamento dos eventos
+As vezes as notificações não são utilizas por ser consideradas desnecessárias mas deixamos configurado para poder deixar registrado o quando o Node-Red pode ajudar no gerenciamento dos eventos
 ocorridos nos controladores.
 
 ## Help
